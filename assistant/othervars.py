@@ -29,7 +29,7 @@ async def _(e):
         return
     if not udB.get("GDRIVE_CLIENT_ID"):
         return await e.edit(
-            "Client ID and Secret is Empty.\nFill it First.",
+            "El ID de cliente y el secreto están vacíos.\nRellénalo primero.",
             buttons=Button.inline("Back", data="gdrive"),
         )
     storage = await create_token_file(TOKEN_FILE, e)
@@ -38,8 +38,8 @@ async def _(e):
     token_file_data = f.read()
     udB.set("GDRIVE_TOKEN", token_file_data)
     await e.reply(
-        "`Success!\nYou are all set to use Google Drive with Ultroid Userbot.`",
-        buttons=Button.inline("Main Menu", data="setter"),
+        "`Éxito!\nYa está todo listo para usar Google Drive con Sayu Userbot.`",
+        buttons=Button.inline("Menú Principal", data="setter"),
     )
 
 
@@ -49,20 +49,20 @@ async def _(e):
     if not e.is_private:
         return
     await e.edit(
-        "Send your FOLDER ID\n\n"
-        + "For FOLDER ID:\n"
-        + "1. Open Google Drive App.\n"
-        + "2. Create Folder.\n"
-        + "3. Make that folder public.\n"
-        + "4. Copy link of that folder."
-        + "5. Send all characters which is after id= .",
+        "Envía su ID de la Carpeta\n\n"
+        + "Para la ID de la carpeta:\n"
+        + "1. Abre la aplicación Google Drive.\n"
+        + "2. Crear carpeta.\n"
+        + "3. Haz que esa carpeta sea pública.\n"
+        + "4. Copiar el enlace de esa carpeta."
+        + "5. Enviar todos los caracteres que están después de id= .",
     )
     async with ultroid_bot.asst.conversation(e.sender_id) as conv:
         reply = conv.wait_event(events.NewMessage(from_users=e.sender_id))
         repl = await reply
         udB.set("GDRIVE_FOLDER_ID", repl.text)
         await repl.reply(
-            "Success Now You Can Authorise.",
+            "Éxito Ahora puede autorizar.",
             buttons=get_back_button("gdrive"),
         )
 
@@ -72,13 +72,13 @@ async def _(e):
 async def _(e):
     if not e.is_private:
         return
-    await e.edit("Send your CLIENT SECRET")
+    await e.edit("Envíe su CLIENTE SECRETO")
     async with ultroid_bot.asst.conversation(e.sender_id) as conv:
         reply = conv.wait_event(events.NewMessage(from_users=e.sender_id))
         repl = await reply
         udB.set("GDRIVE_CLIENT_SECRET", repl.text)
         await repl.reply(
-            "Success!\nNow You Can Authorise or add FOLDER ID.",
+            "Éxito!\nAhora puede autorizar o añadir el ID de la Carpeta.",
             buttons=get_back_button("gdrive"),
         )
 
@@ -88,15 +88,15 @@ async def _(e):
 async def _(e):
     if not e.is_private:
         return
-    await e.edit("Send your CLIENT ID ending with .com")
+    await e.edit("Envíe su ID de Cliente que termina en .com")
     async with ultroid_bot.asst.conversation(e.sender_id) as conv:
         reply = conv.wait_event(events.NewMessage(from_users=e.sender_id))
         repl = await reply
         if not repl.text.endswith(".com"):
-            return await repl.reply("`Wrong CLIENT ID`")
+            return await repl.reply("`ID de ClienteIncorrecto`")
         udB.set("GDRIVE_CLIENT_ID", repl.text)
         await repl.reply(
-            "Success now set CLIENT SECRET",
+            "Se ha establecido el Cliente Secreto",
             buttons=get_back_button("gdrive"),
         )
 
@@ -107,17 +107,17 @@ async def _(e):
     if not e.is_private:
         return
     await e.edit(
-        "Go [here](https://console.developers.google.com/flows/enableapi?apiid=drive) and get your CLIENT ID and CLIENT SECRET",
+        "Ir [aquí](https://console.developers.google.com/flows/enableapi?apiid=drive) and get your CLIENT ID and CLIENT SECRET",
         buttons=[
             [
-                Button.inline("Cʟɪᴇɴᴛ Iᴅ", data="clientid"),
-                Button.inline("Cʟɪᴇɴᴛ Sᴇᴄʀᴇᴛ", data="clientsec"),
+                Button.inline("ID de Cliente", data="clientid"),
+                Button.inline("Cliente Secreto", data="clientsec"),
             ],
             [
-                Button.inline("Fᴏʟᴅᴇʀ Iᴅ", data="folderid"),
-                Button.inline("Aᴜᴛʜᴏʀɪsᴇ", data="authorise"),
+                Button.inline("ID de Carpeta", data="folderid"),
+                Button.inline("Autorizar", data="authorise"),
             ],
-            [Button.inline("« Bᴀᴄᴋ", data="otvars")],
+            [Button.inline("« Atrás", data="otvars")],
         ],
         link_preview=False,
     )
@@ -127,25 +127,25 @@ async def _(e):
 @owner
 async def otvaar(event):
     await event.edit(
-        "Other Variables to set for @TheUltroid:",
+        "Otras variables a establecer para @SayuOgiwaraBot:",
         buttons=[
             [
-                Button.inline("Tᴀɢ Lᴏɢɢᴇʀ", data="taglog"),
-                Button.inline("SᴜᴘᴇʀFʙᴀɴ", data="sfban"),
+                Button.inline("Registro de etiquetas", data="taglog"),
+                Button.inline("Super F Ban", data="sfban"),
             ],
             [
-                Button.inline("Sᴜᴅᴏ Mᴏᴅᴇ", data="sudo"),
-                Button.inline("Hᴀɴᴅʟᴇʀ", data="hhndlr"),
+                Button.inline("Modo Sudo", data="sudo"),
+                Button.inline("Controlador", data="hhndlr"),
             ],
             [
-                Button.inline("Exᴛʀᴀ Pʟᴜɢɪɴs", data="plg"),
-                Button.inline("Aᴅᴅᴏɴs", data="eaddon"),
+                Button.inline("Plugins adicionales", data="plg"),
+                Button.inline("Addons", data="eaddon"),
             ],
             [
-                Button.inline("Eᴍᴏᴊɪ ɪɴ Hᴇʟᴘ", data="emoj"),
-                Button.inline("Sᴇᴛ ɢDʀɪᴠᴇ", data="gdrive"),
+                Button.inline("Emoji de ayuda", data="emoj"),
+                Button.inline("Establecer Gdrive", data="gdrive"),
             ],
-            [Button.inline("« Bᴀᴄᴋ", data="setter")],
+            [Button.inline("« Atrás", data="setter")],
         ],
     )
 
@@ -158,24 +158,24 @@ async def emoji(event):
     var = "EMOJI_IN_HELP"
     name = f"Emoji in `{HNDLR}help` menu"
     async with event.client.conversation(pru) as conv:
-        await conv.send_message("Send emoji u want to set 🙃.\n\nUse /cancel to cancel.")
+        await conv.send_message("Envíe el emoji que desea establecer 🙃.\n\nUsa /cancel para cancelar.")
         response = conv.wait_event(events.NewMessage(chats=pru))
         response = await response
         themssg = response.message.message
         if themssg == "/cancel":
             return await conv.send_message(
-                "Cancelled!!",
+                "Cancelado!!",
                 buttons=get_back_button("otvars"),
             )
         elif themssg.startswith(("/", HNDLR)):
             return await conv.send_message(
-                "Incorrect Emoji",
+                "Emoji Incorrecto",
                 buttons=get_back_button("otvars"),
             )
         else:
             await setit(event, var, themssg)
             await conv.send_message(
-                f"{name} changed to {themssg}\n",
+                f"{name} cambió a {themssg}\n",
                 buttons=get_back_button("otvars"),
             )
 
@@ -186,28 +186,28 @@ async def pluginch(event):
     await event.delete()
     pru = event.sender_id
     var = "PLUGIN_CHANNEL"
-    name = "Plugin Channel"
+    name = "Canal de Plugin"
     async with event.client.conversation(pru) as conv:
         await conv.send_message(
-            "Send id or username of a channel from where u want to install all plugins\n\nOur Channel~ @ultroidplugins\n\nUse /cancel to cancel.",
+            "Envíe el ID o el nombre de usuario de un canal desde el que desee instalar todos los plugins\n\nNuestro Canal~ @ultroidplugins\n\nUsa /cancel para cancelar.",
         )
         response = conv.wait_event(events.NewMessage(chats=pru))
         response = await response
         themssg = response.message.message
         if themssg == "/cancel":
             return await conv.send_message(
-                "Cancelled!!",
+                "Cancelado!!",
                 buttons=get_back_button("otvars"),
             )
         elif themssg.startswith(("/", HNDLR)):
             return await conv.send_message(
-                "Incorrect channel",
+                "Canal Incorrecto",
                 buttons=get_back_button("otvars"),
             )
         else:
             await setit(event, var, themssg)
             await conv.send_message(
-                "{} changed to {}\n After Setting All Things Do Restart".format(
+                "{} cambió a {}\n Después de configurar todo se reinicia".format(
                     name,
                     themssg,
                 ),
@@ -224,30 +224,30 @@ async def hndlrr(event):
     name = "Handler/ Trigger"
     async with event.client.conversation(pru) as conv:
         await conv.send_message(
-            f"Send The Symbol Which u want as Handler/Trigger to use bot\nUr Current Handler is [ `{HNDLR}` ]\n\n use /cancel to cancel.",
+            f"Envía el símbolo que quieres como Handler/Trigger para usar el bot\nSu Handler actual es [ `{HNDLR}` ]\n\n usa /cancel para cancelar.",
         )
         response = conv.wait_event(events.NewMessage(chats=pru))
         response = await response
         themssg = response.message.message
         if themssg == "/cancel":
             return await conv.send_message(
-                "Cancelled!!",
+                "Cancelado!!",
                 buttons=get_back_button("otvars"),
             )
         elif len(themssg) > 1:
             return await conv.send_message(
-                "Incorrect Handler",
+                "Handler Incorrecto",
                 buttons=get_back_button("otvars"),
             )
         elif themssg.startswith(("/", "#", "@")):
             return await conv.send_message(
-                "This cannot be used as handler",
+                "No se puede utilizar como Handler",
                 buttons=get_back_button("otvars"),
             )
         else:
             await setit(event, var, themssg)
             await conv.send_message(
-                f"{name} changed to {themssg}",
+                f"{name} cambió a {themssg}",
                 buttons=get_back_button("otvars"),
             )
 
@@ -258,23 +258,23 @@ async def tagloggerr(event):
     await event.delete()
     pru = event.sender_id
     var = "TAG_LOG"
-    name = "Tag Log Group"
+    name = "Grupo de Registro de Etiquetas"
     async with event.client.conversation(pru) as conv:
         await conv.send_message(
-            f"Make a group, add your assistant and make it admin.\nGet the `{hndlr}id` of that group and send it here for tag logs.\n\nUse /cancel to cancel.",
+            f"Haz un grupo, añade a tu asistente y hazlo administrador.\nObtenga el `{hndlr}id` de ese grupo y envíelo aquí para el registro de etiquetas.\n\nUsa /cancel para cancelar.",
         )
         response = conv.wait_event(events.NewMessage(chats=pru))
         response = await response
         themssg = response.message.message
         if themssg == "/cancel":
             return await conv.send_message(
-                "Cancelled!!",
+                "Cancelado!!",
                 buttons=get_back_button("otvars"),
             )
         else:
             await setit(event, var, themssg)
             await conv.send_message(
-                f"{name} changed to {themssg}",
+                f"{name} cambió a {themssg}",
                 buttons=get_back_button("otvars"),
             )
 
@@ -283,11 +283,11 @@ async def tagloggerr(event):
 @owner
 async def pmset(event):
     await event.edit(
-        "ADDONS~ Extra Plugins:",
+        "ADDONS~ Plugins adicionales:",
         buttons=[
-            [Button.inline("Aᴅᴅᴏɴs  Oɴ", data="edon")],
-            [Button.inline("Aᴅᴅᴏɴs  Oғғ", data="edof")],
-            [Button.inline("« Bᴀᴄᴋ", data="otvars")],
+            [Button.inline("Complementos Activados", data="edon")],
+            [Button.inline("Complementos Desactivados", data="edof")],
+            [Button.inline("« Atrás", data="otvars")],
         ],
     )
 
@@ -298,7 +298,7 @@ async def eddon(event):
     var = "ADDONS"
     await setit(event, var, "True")
     await event.edit(
-        "Done! ADDONS has been turned on!!\n\n After Setting All Things Do Restart",
+        "Ya está. Los Complementos han sido activados!!\n\n Después de configurar todo se reinicia",
         buttons=get_back_button("eaddon"),
     )
 
@@ -309,7 +309,7 @@ async def eddof(event):
     var = "ADDONS"
     await setit(event, var, "False")
     await event.edit(
-        "Done! ADDONS has been turned off!! After Setting All Things Do Restart",
+        "Listo! Los Complementos han sido desactivados!! After Setting All Things Do Restart",
         buttons=get_back_button("eaddon"),
     )
 

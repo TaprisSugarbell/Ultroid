@@ -28,11 +28,11 @@ async def _(event):
         string = event.text.split(" ", maxsplit=1)[1]
     except IndexError:
         fuk = event.builder.article(
-            title="Search Something",
+            title="Busca algo",
             thumb=wb(ytt, 0, "image/jpeg", []),
-            text="**YᴏᴜTᴜʙᴇ Sᴇᴀʀᴄʜ**\n\nYou didn't search anything",
+            text="**YᴏᴜTᴜʙᴇ Sᴇᴀʀᴄʜ**\n\nNo has buscado nada",
             buttons=Button.switch_inline(
-                "Sᴇᴀʀᴄʜ Aɢᴀɪɴ",
+                "Buscar de nuevo",
                 query="yt ",
                 same_peer=True,
             ),
@@ -49,8 +49,8 @@ async def _(event):
         ids = v["id"]
         duration = v["duration"]
         thumb = f"https://img.youtube.com/vi/{ids}/hqdefault.jpg"
-        text = f"**•Tɪᴛʟᴇ•** `{title}`\n\n**••[Lɪɴᴋ]({link})••**\n\n**••Dᴜʀᴀᴛɪᴏɴ••** `{duration}`\n\n\n"
-        desc = f"Title : {title}\nDuration : {duration}"
+        text = f"**•Título•** `{title}`\n\n**••[Link]({link})••**\n\n**••Duración••** `{duration}`\n\n\n"
+        desc = f"Título : {title}\nDuración : {duration}"
         results.append(
             await event.builder.document(
                 file=thumb,
@@ -65,12 +65,12 @@ async def _(event):
                     ],
                     [
                         Button.switch_inline(
-                            "Sᴇᴀʀᴄʜ Aɢᴀɪɴ",
+                            "Busca de Nuevo",
                             query="yt ",
                             same_peer=True,
                         ),
                         Button.switch_inline(
-                            "Sʜᴀʀᴇ",
+                            "Compartir",
                             query=f"yt {string}",
                             same_peer=False,
                         ),
@@ -124,17 +124,17 @@ async def _(sur):
     c_time = time.time()
     if song:
         await sur.edit(
-            f"`Preparing to upload song:`\
+            f"`Preparando la subida de la canción:`\
         \n**{ytdl_data['title']}**\
         \nby *{ytdl_data['uploader']}*",
         )
-        MSG = f"**{ytdl_data['title']}** Uploaded Successfully !"
+        MSG = f"**{ytdl_data['title']}** Subida con éxito !"
         chat = sur.chat_id
         whome = ultroid_bot
         if sur.is_private and sur.sender_id != ultroid_bot.uid:
             chat = sur.sender_id
             whome = asst
-            MSG += f"\nGet at {Var.BOT_USERNAME}"
+            MSG += f"\nConseguir en {Var.BOT_USERNAME}"
         try:
             await whome.send_file(
                 chat,
@@ -155,7 +155,7 @@ async def _(sur):
                         t,
                         sur,
                         c_time,
-                        "Uploading..",
+                        "Subiendo..",
                         f"{ytdl_data['title']}.mp3",
                     ),
                 ),
@@ -178,7 +178,7 @@ async def _(sur):
         os.system(f"rm {ytdl_data['id']}.mp*")
         await sur.edit(
             MSG,
-            buttons=Button.switch_inline("Search More", query="yt ", same_peer=True),
+            buttons=Button.switch_inline("Buscar más", query="yt ", same_peer=True),
         )
 
 
@@ -207,22 +207,22 @@ async def _(fuk):
     c_time = time.time()
     if video:
         await fuk.edit(
-            f"`Preparing to upload video:`\
+            f"`Preparando la subida del vídeo:`\
         \n**{ytdl_data['title']}**\
         \nby *{ytdl_data['uploader']}*",
         )
-        MSG = f"**{ytdl_data['title']}** Uploaded Successfully !"
+        MSG = f"**{ytdl_data['title']}** Subida con éxito !"
         chat = fuk.chat_id
         whome = ultroid_bot
         if event.is_private and event.sender_id != ultroid_bot.uid:
             chat = fuk.sender_id
             whome = asst
-            MSG += f"\nGet at {Var.BOT_USERNAME}"
+            MSG += f"\nConseguir en {Var.BOT_USERNAME}"
         try:
             await whome.send_file(
                 chat,
                 f"{ytdl_data['id']}.mp4",
-                thumb=f"./resources/extras/ultroid.jpg",
+                thumb=f"./resources/extras/sayu.jpg",
                 caption=f"**{ytdl_data['title']}\n{time_formatter((ytdl_data['duration'])*1000)}\n{ytdl_data['uploader']}**",
                 supports_streaming=True,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
@@ -231,7 +231,7 @@ async def _(fuk):
                         t,
                         fuk,
                         c_time,
-                        "Uploading..",
+                        "Subiendo..",
                         f"{ytdl_data['title']}.mp4",
                     ),
                 ),
@@ -240,7 +240,7 @@ async def _(fuk):
             await asst.send_file(
                 chat,
                 f"{ytdl_data['id']}.mp4",
-                thumb=f"./resources/extras/ultroid.jpg",
+                thumb=f"./resources/extras/sayu.jpg",
                 caption=f"**{ytdl_data['title']}\n{time_formatter((ytdl_data['duration'])*1000)}\n{ytdl_data['uploader']}**",
                 supports_streaming=True,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
@@ -249,7 +249,7 @@ async def _(fuk):
                         t,
                         fuk,
                         c_time,
-                        "Uploading..",
+                        "Subiendo..",
                         f"{ytdl_data['title']}.mp4",
                     ),
                 ),
@@ -257,5 +257,5 @@ async def _(fuk):
         os.remove(f"{ytdl_data['id']}.mp4")
         await fuk.edit(
             MSG,
-            buttons=Button.switch_inline("Search More", query="yt ", same_peer=True),
+            buttons=Button.switch_inline("Buscar más", query="yt ", same_peer=True),
         )
